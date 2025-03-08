@@ -107,6 +107,7 @@
 									:disabled="index != 0"
 									variant="outline"
 									class="flex items-center justify-center gap-x-3 rounded-sm"
+									@click="handleGetResult(index)"
 								>
 									<Icon
 										name="stash:search-results-duotone"
@@ -162,9 +163,19 @@
 
 <script setup lang="ts">
 import { useAccountStore } from '../stores/account'
+import { useApiStore } from '../stores/api-manager'
 const account = useAccountStore()
+const apiManager = useApiStore()
 
 const { levels } = storeToRefs(account)
+
+const handleGetResult = async (gameId: number) => {
+	const result: string[] | undefined = await apiManager.getResults(gameId)
+	console.log('Result of level #', gameId + 1, ' is:', result)
+	if (result != undefined) {
+		levels.value[gameId].transcript = result
+	}
+}
 
 definePageMeta({
 	layout: 'dashboard',

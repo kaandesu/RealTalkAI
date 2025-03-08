@@ -20,6 +20,61 @@ export const useApiStore = defineStore(
 			connected: false,
 		})
 
+		const getResults = async (
+			gameId: number,
+		): Promise<string[] | undefined> => {
+			const convoId = conversationHistory.value.find(
+				(c) => c.gameIndex == gameId,
+			)?.convoId
+
+			if (!convoId) {
+				createToast({
+					message: 'Something bad happened :( [Aborted]',
+					toastOps: {
+						description: 'Could not find the convo id! sorry..',
+					},
+					type: 'error',
+				})()
+				return []
+			}
+
+			try {
+				const response = await fetch(
+					`https://api.elevenlabs.io/v1/convai/conversations/${convoId}`,
+					{
+						method: 'GET',
+						headers: {
+							'Content-Type': 'application/json',
+							'xi-api-key':
+								'sk_ff4c515ea60335a3d45578539f7438e5fb47ba72aa42d3c5',
+						},
+					},
+				)
+
+				if (!response.ok) {
+					throw new Error('Failed to fetch conversation data')
+				}
+
+				const data = await response.json()
+				const transcript = data.transcript
+					.map((entry: any) => entry.message)
+					.filter(Boolean)
+
+				console.log('Transcript:', transcript)
+				return transcript
+			} catch (error) {
+				console.error('Error fetching conversation data:', error)
+				createToast({
+					message: 'Error fetching results',
+					toastOps: {
+						description:
+							'Could not retrieve the conversation data.',
+					},
+					type: 'error',
+				})()
+			}
+		}
+
 		const conversation = ref<Conversation | null>(null)
 
 		const conversationHistory = ref<ConvoHistory[]>([])
@@ -71,7 +126,7 @@ export const useApiStore = defineStore(
 
 				clearTimeout(timeout)
 				createToast({
-					message: 'Converstaion Error',
+					message: 'Conversation Error',
 					toastOps: {
 						description: 'Failed to start conversation:',
 					},
@@ -101,6 +156,7 @@ export const useApiStore = defineStore(
 			stopConversation,
 			startConversation,
 			conversationHistory,
+			getResults,
 		}
 	},
 	{
