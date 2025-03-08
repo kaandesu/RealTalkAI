@@ -113,11 +113,11 @@ definePageMeta({
 
 <style scoped>
 #myEmbeddedScene {
-	height: 200px;
+	height: calc(100% - 250px);
 	width: 300px;
 }
 #ascene {
-	height: 200px;
+	height: calc(100% - 250px);
 	width: 300px;
 	display: block !important;
 }
