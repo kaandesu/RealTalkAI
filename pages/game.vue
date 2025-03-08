@@ -8,6 +8,8 @@
 				class="flex flex-wrap items-center justify-center gap-x-3 gap-y-2"
 			>
 				<Button
+					@click="apiManager.startConversation(0)"
+					:disabled="apiState.connected"
 					class="flex items-center justify-center gap-x-2 rounded-sm px-3 sm:px-4 md:px-5 lg:px-6"
 				>
 					<Icon
@@ -21,7 +23,8 @@
 
 				<Button
 					variant="outline"
-					disabled
+					@click="apiManager.stopConversation()"
+					:disabled="!apiState.connected"
 					class="flex items-center justify-center gap-x-2 rounded-sm px-3 sm:px-4 md:px-5 lg:px-6"
 				>
 					<Icon
@@ -56,7 +59,10 @@
 
 		<br />
 
-		<div id="myEmbeddedScene" v-if="pageLoaded">
+		<div
+			v-if="state.aciveGameIndex != -1 && pageLoaded"
+			id="myEmbeddedScene"
+		>
 			<a-scene
 				id="ascene"
 				light="defaultLightsEnabled: true"
@@ -89,8 +95,13 @@
 
 <script setup lang="ts">
 import { useAccountStore } from '../stores/account'
+import { useApiStore } from '../stores/api-manager'
 
 const account = useAccountStore()
+const apiManager = useApiStore()
+
+const { apiState } = storeToRefs(apiManager)
+
 const pageLoaded = ref<boolean>(false)
 
 onMounted(() => (pageLoaded.value = true))

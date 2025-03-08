@@ -97,7 +97,6 @@ definePageMeta({
 	layout: 'auth',
 })
 
-// TODO: add password rules
 const schema = z.object({
 	email: z.string().email('Email is required'),
 	password: z

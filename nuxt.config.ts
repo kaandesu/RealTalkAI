@@ -2,7 +2,6 @@ import { image, tailwindcss, viewport, i18n } from './config/'
 export default defineNuxtConfig({
 	ssr: false,
 	pages: true,
-	// TODO: add 'lang' to the header and update title on change
 	modules: [
 		// 'nuxt-capo',
 		'nuxt-typed-router',

@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@11labs/client':
+        specifier: ^0.0.7
+        version: 0.0.7
       '@formkit/auto-animate':
         specifier: ^0.8.2
         version: 0.8.2
@@ -143,6 +146,9 @@ importers:
         version: 3.23.8
 
 packages:
+
+  '@11labs/client@0.0.7':
+    resolution: {integrity: sha512-BbEV3aMZ8fFGUkjUN9aK6LhJwMv1Fiskx1NuVaO2M+r2bzMzrVenNm9qr8dYct+ixPqWt+M2d35e0QWWgHt3GQ==}
 
   '@alloc/quick-lru@5.2.0':
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
@@ -4600,6 +4606,8 @@ packages:
     resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
 
 snapshots:
+
+  '@11labs/client@0.0.7': {}
 
   '@alloc/quick-lru@5.2.0': {}
 

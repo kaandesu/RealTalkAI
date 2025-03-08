@@ -15,6 +15,7 @@
 		"new:page": "npx hygen page new"
 	},
 	"dependencies": {
+		"@11labs/client": "^0.0.7",
 		"@formkit/auto-animate": "^0.8.2",
 		"@nuxt/image": "^1.8.1",
 		"@nuxtjs/color-mode": "^3.5.2",

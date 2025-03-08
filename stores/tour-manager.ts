@@ -85,23 +85,10 @@ export const useTourStore = defineStore('tourStore', () => {
 		defu({ useModalOverlay: true }, defaultTourOptions),
 	)
 
-	// TODO: this sidebar thing is hard coded, but actually needs to be generated
 	const tours = ref<Record<Tour, TourObject>>({
 		sidebar: {
 			tour: dashboardTour,
-			ids: [
-				'dashboard',
-				'tasks',
-				'chats',
-				'apps',
-				'auth',
-				'users',
-				'request',
-				'analysis',
-				'extra-components',
-				'error-pages',
-				'settings',
-			],
+			ids: ['dashboard', 'settings'],
 			actions: defu(
 				{
 					complete: () => {

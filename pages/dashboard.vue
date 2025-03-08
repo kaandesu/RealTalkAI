@@ -92,20 +92,33 @@
 							<section class="text-xs italic text-gray-600">
 								Feedback: {{ level.result?.feedback ?? 'N/A' }}
 							</section>
-							<Button
-								@click="account.startGame(index)"
-								:disabled="index != 0"
-								variant="outline"
-								class="flex items-center justify-center gap-x-3 rounded-sm"
+							<section
+								class="flex items-center justify-center gap-x-3"
 							>
-								<Icon
-									name="material-symbols:replay-rounded"
-									class="h-6 w-6"
+								<ConvoDialog
+									:disabled="index != 0"
+									:gameId="index"
+									:gameTitle="level.name"
+									:transcript="
+										level.transcript ?? ['N/A', 'N/A']
+									"
 								/>
-								<Label class="pointer-events-none pr-5"
-									>Retry</Label
+								<Button
+									:disabled="index != 0"
+									variant="outline"
+									class="flex items-center justify-center gap-x-3 rounded-sm"
 								>
-							</Button>
+									<Icon
+										name="stash:search-results-duotone"
+										class="h-6 w-6"
+									/>
+									<Label
+										class="pointer-events-none w-5 text-wrap pr-5 text-center text-xs"
+									>
+										Get Results!
+									</Label>
+								</Button>
+							</section>
 						</CardFooter>
 					</Card>
 				</section>

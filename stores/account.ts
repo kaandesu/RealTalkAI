@@ -42,6 +42,7 @@ export type Level = {
 	difficulty?: Number
 	result?: LevelResult
 	suggestions?: LevelSuggestion
+	transcript?: string[]
 }
 
 export type CurrentState = {
@@ -51,7 +52,6 @@ export type CurrentState = {
 export const useAccountStore = defineStore(
 	'AccountStore',
 	() => {
-		// TODO: update account related stuff in a middleware
 		const account = ref<Account>({
 			displayName: '@kaandesu',
 			avatar: 'https://avatars.githubusercontent.com/u/74111241?v=4',

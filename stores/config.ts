@@ -21,7 +21,6 @@ export const useConfigStore = defineStore(
 			},
 		})
 
-		// TODO: maybe runtime config this
 		const sidebar = ref<DashboardConfig>({
 			title: 'RealTalk Dashboard',
 			desc: 'Conversation Trainer',
