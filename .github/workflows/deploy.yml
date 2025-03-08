@@ -37,6 +37,9 @@ jobs:
             - name: Generate the static site
               run: pnpm generate
 
+            - name: Add CNAME file
+              run: echo "learn.realtalk.quest" > .output/public/CNAME
+
             - name: Deploy to GitHub Pages
               uses: peaceiris/actions-gh-pages@v3
               with:
