@@ -1,0 +1,1 @@
+import{m as t,o,c as a,a as s,d as n}from"./D0IQtwTZ.js";const r={class:"box-border h-full w-full p-6"},u=t({__name:"settings",setup(l){return(c,e)=>(o(),a("main",r,e[0]||(e[0]=[s("div",{class:""},"🚧 Settings 🚧",-1),n(" Customize your dashboard layout and preferences. "),s("br",null,null,-1)])))}});export{u as default};
