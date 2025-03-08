@@ -29,9 +29,10 @@ export const useApiStore = defineStore(
 
 			if (!convoId) {
 				createToast({
-					message: 'Something bad happened :( [Aborted]',
+					message: 'Conversation does not exist... Aborted.',
 					toastOps: {
-						description: 'Could not find the convo id! sorry..',
+						description:
+							'Play the game before checking the results.',
 					},
 					type: 'error',
 				})()

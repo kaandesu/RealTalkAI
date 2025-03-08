@@ -8,7 +8,7 @@
 				class="flex flex-wrap items-center justify-center gap-x-3 gap-y-2"
 			>
 				<Button
-					@click="apiManager.startConversation(0)"
+					@click="handleStartConvo(state.aciveGameIndex ?? 0)"
 					:disabled="apiState.connected"
 					class="flex items-center justify-center gap-x-2 rounded-sm px-3 sm:px-4 md:px-5 lg:px-6"
 				>
@@ -107,6 +107,11 @@ const pageLoaded = ref<boolean>(false)
 onMounted(() => (pageLoaded.value = true))
 
 const { levels, state } = storeToRefs(account)
+
+const handleStartConvo = async (gameId: number) => {
+	await apiManager.startConversation(gameId)
+	enterVRMode()
+}
 
 const enterVRMode = () => {
 	const scene: any = document.querySelector('a-scene')
