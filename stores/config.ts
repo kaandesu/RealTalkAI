@@ -29,6 +29,7 @@ export const useConfigStore = defineStore(
 			logoFallback: 'RT',
 			pages: [
 				p.Dashboard.value,
+				p.Game.value,
 				p.Authentication.value,
 				p.Settings.value,
 			],

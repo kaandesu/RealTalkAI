@@ -33,6 +33,11 @@
 
 <script setup lang="ts">
 import { useAppStateStore } from '../stores/app-state'
+// @ts-ignore
+import * as aframe from 'aframe'
+onMounted(() => {
+	console.log(aframe)
+})
 const appState = useAppStateStore()
 const { navState } = storeToRefs(appState)
 </script>

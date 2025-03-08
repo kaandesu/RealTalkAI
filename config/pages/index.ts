@@ -7,6 +7,7 @@ import { ChangePassword } from './changePassword'
 import { Dashboard } from './dashboard'
 import { DashboardSettings } from './dashboardSettings'
 import { ForgotPassword } from './forgotPassword'
+import { Game } from './game'
 import { Levels } from './levels'
 import { NotFound } from './notFound'
 import { Notifications } from './notifications'
@@ -25,6 +26,7 @@ export type PageId =
 	| 'dashboard'
 	| 'dashboard-settings'
 	| 'forgot-password'
+	| 'game'
 	| 'levels'
 	| 'not-found'
 	| 'notifications'
@@ -43,6 +45,7 @@ export const pages: Page[] = [
 	Dashboard.value,
 	DashboardSettings.value,
 	ForgotPassword.value,
+	Game.value,
 	Levels.value,
 	NotFound.value,
 	Notifications.value,
@@ -62,6 +65,7 @@ export const pagesDict: Record<string, Ref<Page>> = {
 	Dashboard,
 	DashboardSettings,
 	ForgotPassword,
+	Game,
 	Levels,
 	NotFound,
 	Notifications,
