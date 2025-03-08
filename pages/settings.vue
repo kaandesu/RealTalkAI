@@ -21,6 +21,12 @@ const account = useAccountStore()
 
 const temp = ref<string>('')
 
+onMounted(() => {
+	if (account.account.apiKey != '') {
+		temp.value = account.account.apiKey
+	}
+})
+
 const updateSettings = () => {
 	if (temp.value == '') {
 		createToast({
@@ -35,7 +41,6 @@ const updateSettings = () => {
 	}
 
 	account.account.apiKey = temp.value
-	temp.value = ''
 
 	createToast({
 		message: 'Success',
