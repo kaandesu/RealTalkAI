@@ -1,5 +1,5 @@
 <template>
-	<div class="flex items-center space-x-4">
+	<div class="flex items-center space-x-4" v-if="false">
 		<UseTemplate>
 			<Command>
 				<CommandInput class="h-4" placeholder="Search...">

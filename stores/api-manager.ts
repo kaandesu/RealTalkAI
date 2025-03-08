@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { Conversation } from '@11labs/client'
 import createToast from '~/utils/create-toast'
+// import OpenAI from 'openai'
 
 export type ApiState = {
 	agentStatus: 'disconnected' | 'speaking' | 'listening'

@@ -15,8 +15,8 @@
 				>
 					<div></div>
 					<div class="flex items-center justify-center gap-x-4">
-						<nav-command />
-						<theme-select />
+						<!-- <nav-command /> -->
+						<!-- <theme-select /> -->
 						<lang-select />
 						<dark-button />
 						<profile-button />
