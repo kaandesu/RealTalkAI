@@ -61,6 +61,18 @@ export const useApiStore = defineStore(
 					.filter(Boolean)
 
 				console.log('Transcript:', transcript)
+
+				conversationHistory.value = conversationHistory.value.filter(
+					(c) => c.gameIndex !== gameId,
+				)
+				createToast({
+					message: 'Results are out!!',
+					toastOps: {
+						description:
+							'Click the chat icon to see the transcript of your talk!',
+					},
+					type: 'success',
+				})()
 				return transcript
 			} catch (error) {
 				console.error('Error fetching conversation data:', error)
@@ -85,7 +97,7 @@ export const useApiStore = defineStore(
 				toastOps: {
 					description: 'Enable your microphone and start speaking!',
 				},
-				type: 'success',
+				type: 'info',
 			})()
 
 			let timeout: any

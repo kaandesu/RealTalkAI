@@ -16,7 +16,7 @@
 			</section>
 			<TabsContent value="levels">
 				<section
-					class="flex w-full flex-wrap justify-between gap-5 overscroll-y-auto overscroll-x-none"
+					class="flex w-full flex-wrap justify-around gap-5 overscroll-y-auto overscroll-x-none"
 				>
 					<Card
 						class="w-64 shadow-md transition-all hover:scale-[1.02] hover:shadow-xl"
@@ -53,7 +53,7 @@
 			</TabsContent>
 			<TabsContent value="results">
 				<section
-					class="flex w-full flex-wrap justify-between gap-5 overscroll-y-auto overscroll-x-none"
+					class="flex w-full flex-wrap justify-around gap-5 overscroll-y-auto overscroll-x-none"
 				>
 					<Card
 						class="w-64 shadow-md transition-all hover:scale-[1.02] hover:shadow-xl"
@@ -126,7 +126,7 @@
 			</TabsContent>
 			<TabsContent value="suggestions">
 				<section
-					class="flex w-full flex-wrap justify-between gap-5 overscroll-y-auto overscroll-x-none"
+					class="flex w-full flex-wrap justify-around gap-5 overscroll-y-auto overscroll-x-none"
 				>
 					<Card
 						class="w-64 shadow-md transition-all hover:scale-[1.02] hover:shadow-xl"
