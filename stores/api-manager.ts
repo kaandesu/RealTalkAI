@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { Conversation } from '@11labs/client'
 import createToast from '~/utils/create-toast'
-// import OpenAI from 'openai'
+import OpenAI from 'openai'
 
 export type ApiState = {
 	agentStatus: 'disconnected' | 'speaking' | 'listening'
@@ -22,6 +22,72 @@ export const useApiStore = defineStore(
 		})
 
 		const accountStore = useAccountStore()
+
+		const openai = new OpenAI({
+			apiKey: accountStore.account.apiKeyOpenAi,
+			dangerouslyAllowBrowser: true,
+		})
+
+		const evaluateConversation = async (
+			transcript: string[],
+		): Promise<{
+			result?: LevelResult
+			suggestions?: LevelSuggestion
+		}> => {
+			try {
+				const prompt = `
+        You are an expert language tutor. Evaluate the following conversation transcript.
+        Provide a JSON response with:
+        - An evaluation of the user's conversation skills.
+        - Scores (overallScore, flowScore, grammarScore, vocabScore) from 1 to 100.
+        - Constructive feedback.
+        - A helpful language learning tip with an example.
+
+        Example JSON response:
+        {
+          "result": {
+            "overallScore": 89,
+            "flowScore": 53,
+            "grammarScore": 87,
+            "vocabScore": 77,
+            "feedback": "Great effort! Your fluency is good, but you need to work on using more varied vocabulary."
+          },
+          "suggestions": {
+            "tip": "Try using more advanced vocabulary instead of repeating simple words.",
+            "example": "Instead of saying 'very good', try 'excellent' or 'outstanding'."
+          }
+        }
+
+        Here is the transcript:
+        "${transcript.join('\n')}"
+        `
+
+				const response = await openai.chat.completions.create({
+					model: 'gpt-3.5-turbo',
+					messages: [{ role: 'system', content: prompt }],
+					temperature: 0.7,
+					max_tokens: 500,
+				})
+
+				const parsedData = JSON.parse(
+					response.choices[0].message.content ?? '{}',
+				)
+
+				console.log('OpenAI responded with', parsedData)
+
+				return parsedData
+			} catch (error) {
+				console.error('Error evaluating conversation:', error)
+				createToast({
+					message: 'Error evaluating conversation',
+					toastOps: {
+						description: 'Could not retrieve evaluation data.',
+					},
+					type: 'error',
+				})()
+				return {}
+			}
+		}
 
 		const getResults = async (
 			gameId: number,
@@ -174,6 +240,7 @@ export const useApiStore = defineStore(
 			startConversation,
 			conversationHistory,
 			getResults,
+			evaluateConversation,
 		}
 	},
 	{

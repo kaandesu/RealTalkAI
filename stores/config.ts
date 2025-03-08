@@ -22,8 +22,8 @@ export const useConfigStore = defineStore(
 		})
 
 		const sidebar = ref<DashboardConfig>({
-			title: 'RealTalk Dashboard',
-			desc: 'Conversation Trainer',
+			title: 'RealTalkAI Dashboard',
+			desc: 'Active Language Learning',
 			logo: 'https://avatar.vercel.sh/0.svg',
 			logoFallback: 'RT',
 			pages: [

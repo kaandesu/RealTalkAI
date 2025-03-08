@@ -7,6 +7,7 @@ export type Account = {
 	avatar?: string
 	avatarFallback?: string
 	apiKey: string
+	apiKeyOpenAi: string
 }
 
 export type ContextOption = {
@@ -24,7 +25,7 @@ export type LevelResult = {
 	gameIndex: number
 	overallScore: number
 	flowScore: number
-	grammerScore: number
+	grammarScore: number
 	vocabScore: number
 	feedback?: string
 }
@@ -60,6 +61,7 @@ export const useAccountStore = defineStore(
 			avatar: 'https://avatars.githubusercontent.com/u/74111241?v=4',
 			avatarFallback: 'KD',
 			apiKey: '',
+			apiKeyOpenAi: '',
 		})
 
 		const state = ref<CurrentState>({
@@ -91,16 +93,16 @@ export const useAccountStore = defineStore(
 				agentId: '3VjJuSeZFAZLux3QD7H1',
 			},
 			{
-				name: 'Airport Check-in',
-				desc: 'Learn how to check in for a flight, ask about baggage policies, and navigate security procedures.',
-				objective:
-					'Check in smoothly and get through airport procedures without confusion.',
-			},
-			{
 				name: 'Hotel Reception',
 				desc: 'Practice booking a room, requesting amenities, and handling common hotel interactions.',
 				objective:
 					'Successfully check into a hotel and communicate your needs to the receptionist.',
+			},
+			{
+				name: 'Airport Check-in',
+				desc: 'Learn how to check in for a flight, ask about baggage policies, and navigate security procedures.',
+				objective:
+					'Check in smoothly and get through airport procedures without confusion.',
 			},
 			{
 				name: 'Shopping',

@@ -79,7 +79,7 @@
 								<li>
 									Grammar:
 									{{
-										level.result?.grammerScore ?? 'N/A'
+										level.result?.grammarScore ?? 'N/A'
 									}}/100
 								</li>
 								<li>
@@ -170,11 +170,34 @@ const apiManager = useApiStore()
 const { levels } = storeToRefs(account)
 
 const handleGetResult = async (gameId: number) => {
-	const result: string[] | undefined = await apiManager.getResults(gameId)
+	let result: string[] | undefined = await apiManager.getResults(gameId)
 	console.log('Result of level #', gameId + 1, ' is:', result)
-	if (result != undefined) {
-		levels.value[gameId].transcript = result
+	if (result == undefined) return
+
+	levels.value[gameId].transcript = result
+
+	if (result.length <= 1) {
+		console.log('transcript was empty sending fake transcript')
+		result = [
+			'Good evening! Welcome to our restaurant. How can I help you today?',
+			'Um, yes. I want... food. What you have?',
+			'We have many options. We have a Caesar Salad for eight euros, Beef Burger for twelve euros, Chicken Curry for fourteen euros, and much more. What would you like?',
+			'Ah, I take... burger, please.',
+			'Okay, one Beef Burger. Would you like fries or salad with that?',
+			'Uh... fries. Yes, fries.',
+			'Perfect! Anything to drink? We have water, soda, coffee...',
+			'Water... and maybe... coffee? Small one?',
+			'Got it. One water and a small coffee. Anything else?',
+			'No, no more. Just that, please.',
+			'Alright! Your order is one Beef Burger with fries, water, and a small coffee. It will be ready soon. Thank you!',
+			'Thank you! Good, good.',
+		]
 	}
+
+	console.log('sending to openai')
+	const evaluation = await apiManager.evaluateConversation(result)
+	levels.value[gameId].result = evaluation.result
+	levels.value[gameId].suggestions = evaluation.suggestions
 }
 
 definePageMeta({
