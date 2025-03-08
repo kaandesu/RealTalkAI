@@ -35,8 +35,11 @@
 import { useAppStateStore } from '../stores/app-state'
 // @ts-ignore
 import * as aframe from 'aframe'
+// @ts-ignore
+import * as aframeExtras from 'aframe-extras/loaders/animation-mixer'
 onMounted(() => {
 	console.log(aframe)
+	console.log(aframeExtras)
 })
 const appState = useAppStateStore()
 const { navState } = storeToRefs(appState)

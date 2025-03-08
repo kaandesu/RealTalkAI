@@ -34,6 +34,7 @@
 							<section>Objective: {{ level.objective }}</section>
 							<Button
 								@click="account.startGame(index)"
+								:disabled="index != 0"
 								variant="outline"
 								class="flex items-center justify-center gap-x-3 rounded-sm"
 							>
@@ -42,7 +43,9 @@
 									class="h-8 w-8"
 								/>
 
-								<Label class="pr-5">Play</Label>
+								<Label class="pointer-events-none pr-5"
+									>Play</Label
+								>
 							</Button>
 						</CardFooter>
 					</Card>
@@ -91,6 +94,7 @@
 							</section>
 							<Button
 								@click="account.startGame(index)"
+								:disabled="index != 0"
 								variant="outline"
 								class="flex items-center justify-center gap-x-3 rounded-sm"
 							>
@@ -98,7 +102,9 @@
 									name="material-symbols:replay-rounded"
 									class="h-6 w-6"
 								/>
-								<Label class="pr-5">Retry</Label>
+								<Label class="pointer-events-none pr-5"
+									>Retry</Label
+								>
 							</Button>
 						</CardFooter>
 					</Card>
@@ -134,18 +140,6 @@
 								Example: {{ level.suggestions.example }}
 							</p>
 						</CardContent>
-						<CardFooter class="mt-5 flex flex-col gap-y-5">
-							<Button
-								variant="outline"
-								class="flex items-center justify-center gap-x-3 rounded-sm"
-							>
-								<Icon
-									name="material-symbols:play-arrow-rounded"
-									class="h-6 w-6"
-								/>
-								<Label class="pr-5">Try Again</Label>
-							</Button>
-						</CardFooter>
 					</Card>
 				</section>
 			</TabsContent>
