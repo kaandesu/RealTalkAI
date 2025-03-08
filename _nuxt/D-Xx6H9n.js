@@ -1,1 +1,0 @@
-import{m as t,o as n,c as a,a as s,d as o}from"./HDSvCJ9-.js";const r={class:"box-border h-full w-full p-6"},d=t({__name:"settings",setup(l){return(c,e)=>(n(),a("main",r,e[0]||(e[0]=[s("div",{class:""},"🚧 Settings 🚧",-1),o(" Manage your account settings and preferences. "),s("br",null,null,-1)])))}});export{d as default};
