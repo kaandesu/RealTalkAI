@@ -40,7 +40,8 @@ export default defineNuxtConfig({
 		},
 	},
 	app: {
-		baseURL: '/RealTalkAI/',
+		// baseURL: '/RealTalkAI/',
+		baseURL: '',
 		pageTransition: { name: 'page', mode: 'out-in' },
 	},
 	tailwindcss,

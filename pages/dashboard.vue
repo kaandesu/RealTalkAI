@@ -34,7 +34,7 @@
 							<section>Objective: {{ level.objective }}</section>
 							<Button
 								@click="account.startGame(index)"
-								:disabled="index != 0"
+								:disabled="level.agentId == ''"
 								variant="outline"
 								class="flex items-center justify-center gap-x-3 rounded-sm"
 							>
@@ -96,7 +96,7 @@
 								class="flex items-center justify-center gap-x-3"
 							>
 								<ConvoDialog
-									:disabled="index != 0"
+									:disabled="level.agentId == ''"
 									:gameId="index"
 									:gameTitle="level.name"
 									:transcript="
@@ -104,7 +104,7 @@
 									"
 								/>
 								<Button
-									:disabled="index != 0"
+									:disabled="level.agentId == ''"
 									variant="outline"
 									class="flex items-center justify-center gap-x-3 rounded-sm"
 									@click="handleGetResult(index)"
@@ -177,27 +177,24 @@ const handleGetResult = async (gameId: number) => {
 	levels.value[gameId].transcript = result
 
 	if (result.length <= 1) {
-		console.log('transcript was empty sending fake transcript')
+		console.log('transcript was empty sending FAKE very FAKE transcript')
+
 		result = [
-			'Good evening! Welcome to our restaurant. How can I help you today?',
-			'Um, yes. I want... food. What you have?',
-			'We have many options. We have a Caesar Salad for eight euros, Beef Burger for twelve euros, Chicken Curry for fourteen euros, and much more. What would you like?',
-			'Ah, I take... burger, please.',
-			'Okay, one Beef Burger. Would you like fries or salad with that?',
-			'Uh... fries. Yes, fries.',
-			'Perfect! Anything to drink? We have water, soda, coffee...',
-			'Water... and maybe... coffee? Small one?',
-			'Got it. One water and a small coffee. Anything else?',
-			'No, no more. Just that, please.',
-			'Alright! Your order is one Beef Burger with fries, water, and a small coffee. It will be ready soon. Thank you!',
-			'Thank you! Good, good.',
+			'Welcome to the Real Talk Restaurant! I’m here to assist you with your dining experience…',
+			'I just want one coffee, quick.',
+			'Sure thing! We have Espresso for three Euro…',
+			'That was it. Thank you. Thank you. Bye-bye.',
 		]
+		levels.value[gameId].transcript = result
 	}
 
-	console.log('sending to openai')
 	const evaluation = await apiManager.evaluateConversation(result)
-	levels.value[gameId].result = evaluation.result
-	levels.value[gameId].suggestions = evaluation.suggestions
+	if (evaluation != undefined) {
+		levels.value[gameId].result = evaluation.result
+		levels.value[gameId].suggestions = evaluation.suggestions
+		account.state.aciveGameIndex = -1
+		account.state.activeAiAgent = ''
+	}
 }
 
 definePageMeta({
