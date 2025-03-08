@@ -6,6 +6,7 @@ export type Account = {
 	displayName?: string
 	avatar?: string
 	avatarFallback?: string
+	apiKey: string
 }
 
 export type ContextOption = {
@@ -43,10 +44,12 @@ export type Level = {
 	result?: LevelResult
 	suggestions?: LevelSuggestion
 	transcript?: string[]
+	agentId?: string
 }
 
 export type CurrentState = {
 	aciveGameIndex: number
+	activeAiAgent: string
 }
 
 export const useAccountStore = defineStore(
@@ -56,9 +59,13 @@ export const useAccountStore = defineStore(
 			displayName: '@kaandesu',
 			avatar: 'https://avatars.githubusercontent.com/u/74111241?v=4',
 			avatarFallback: 'KD',
+			apiKey: '',
 		})
 
-		const state = ref<CurrentState>({ aciveGameIndex: -1 })
+		const state = ref<CurrentState>({
+			aciveGameIndex: -1,
+			activeAiAgent: '',
+		})
 
 		const startGame = async (gameIndex: number) => {
 			createToast({
@@ -71,6 +78,7 @@ export const useAccountStore = defineStore(
 				type: 'success',
 			})()
 			state.value.aciveGameIndex = gameIndex
+			state.value.activeAiAgent = levels.value[gameIndex].agentId ?? ''
 			await navigateTo('/game')
 		}
 
@@ -80,6 +88,7 @@ export const useAccountStore = defineStore(
 				desc: 'Practice ordering food, asking for recommendations, and handling common dining interactions in a restaurant setting.',
 				objective:
 					'Successfully complete your order while keeping the conversation natural and polite.',
+				agentId: '3VjJuSeZFAZLux3QD7H1',
 			},
 			{
 				name: 'Airport Check-in',
@@ -180,7 +189,7 @@ export const useAccountStore = defineStore(
 	},
 	{
 		persist: {
-			paths: ['levels', 'state'],
+			paths: ['levels', 'state', 'account'],
 		},
 	},
 )

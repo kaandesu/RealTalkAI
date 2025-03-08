@@ -109,7 +109,16 @@ onMounted(() => (pageLoaded.value = true))
 const { levels, state } = storeToRefs(account)
 
 const handleStartConvo = async (gameId: number) => {
-	await apiManager.startConversation(gameId)
+	if (account.state.activeAiAgent == '') {
+		createToast({
+			message: 'Could not start the conversation :(',
+			toastOps: {
+				description: 'AI agent does not exist.',
+			},
+			type: 'error',
+		})()
+	}
+	await apiManager.startConversation(gameId, account.state.activeAiAgent)
 	enterVRMode()
 }
 

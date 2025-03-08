@@ -20,6 +20,8 @@ export const useApiStore = defineStore(
 			connected: false,
 		})
 
+		const accountStore = useAccountStore()
+
 		const getResults = async (
 			gameId: number,
 		): Promise<string[] | undefined> => {
@@ -46,8 +48,7 @@ export const useApiStore = defineStore(
 						method: 'GET',
 						headers: {
 							'Content-Type': 'application/json',
-							'xi-api-key':
-								'sk_ff4c515ea60335a3d45578539f7438e5fb47ba72aa42d3c5',
+							'xi-api-key': accountStore.account.apiKey,
 						},
 					},
 				)
@@ -92,7 +93,10 @@ export const useApiStore = defineStore(
 
 		const conversationHistory = ref<ConvoHistory[]>([])
 
-		const startConversation = async (gameIndex: number) => {
+		const startConversation = async (
+			gameIndex: number,
+			agentId: string,
+		) => {
 			createToast({
 				message: 'Starting the conversation!',
 				toastOps: {
@@ -104,11 +108,10 @@ export const useApiStore = defineStore(
 			let timeout: any
 
 			try {
-				// Request microphone permission
 				await navigator.mediaDevices.getUserMedia({ audio: true })
-				// Start the conversation
+
 				conversation.value = await Conversation.startSession({
-					agentId: '3VjJuSeZFAZLux3QD7H1',
+					agentId,
 					onConnect: () => {
 						timeout = setTimeout(() => {
 							conversationHistory.value.push({
