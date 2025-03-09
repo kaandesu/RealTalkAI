@@ -1,1 +1,0 @@
-import{m as s,o as n,c as t,a as o}from"./BF6vUdp5.js";const a={class:"box-border h-full w-full p-6"},u=s({__name:"404",setup(l){return(r,e)=>(n(),t("main",a,e[0]||(e[0]=[o("div",{class:""},"🚧 Not Found 🚧",-1),o("br",null,null,-1)])))}});export{u as default};
