@@ -62,14 +62,23 @@
 		<div
 			v-if="state.aciveGameIndex == 0 && pageLoaded"
 			id="myEmbeddedScene"
+			class="h-full w-full"
 		>
 			<a-scene
 				id="ascene"
 				light="defaultLightsEnabled: true"
 				renderer="colorManagement: true;"
+				cursor="rayOrigin: mouse"
 				embedded
 			>
 				<a-sky src="sky2.jpg"></a-sky>
+
+				<a-camera
+					position="0 1.6 0"
+					look-controls
+					fov="80"
+					wasd-controls
+				></a-camera>
 
 				<a-entity
 					id="myModel"
@@ -94,6 +103,7 @@
 		<div
 			v-if="state.aciveGameIndex == 1 && pageLoaded"
 			id="myEmbeddedScene"
+			class="w-full"
 		>
 			<a-scene
 				id="ascene"
@@ -110,6 +120,13 @@
 					shadow="cast: false"
 					gltf-model="hospital_reception_environment.glb"
 				/>
+
+				<a-camera
+					position="0 1.6 0"
+					look-controls
+					fov="80"
+					wasd-controls
+				></a-camera>
 
 				<a-entity
 					id="myModel2"
@@ -155,10 +172,15 @@ const handleStartConvo = async (gameId: number) => {
 
 const enterVRMode = () => {
 	const scene: any = document.querySelector('a-scene')
-	if (scene && scene.enterVR) {
+	if (!scene) {
+		console.warn('A-Frame scene not found.')
+		return
+	}
+	// Ensure WebXR is supported
+	if (scene.enterVR) {
 		scene.enterVR()
 	} else {
-		console.warn('VR mode is not supported or A-Frame not found.')
+		console.warn('VR mode is not supported on this device or browser.')
 	}
 }
 
@@ -169,12 +191,11 @@ definePageMeta({
 
 <style scoped>
 #myEmbeddedScene {
-	height: min(calc(100% - 190px), 415px);
-	width: 415px;
+	height: calc(100% - 180px);
 }
 #ascene {
-	height: min(calc(100% - 190px), 415px);
-	width: 415px;
+	height: 100%;
+	width: 100%;
 	display: block !important;
 }
 </style>

@@ -23,7 +23,7 @@
 		"@radix-icons/vue": "^1.0.0",
 		"@types/three": "^0.174.0",
 		"@vee-validate/nuxt": "^4.14.7",
-		"aframe": "^1.7.0",
+		"aframe": "1.2",
 		"aframe-extras": "^7.5.4",
 		"aframe-extras.animation-mixer": "^6.1.1",
 		"class-variance-authority": "^0.7.1",
