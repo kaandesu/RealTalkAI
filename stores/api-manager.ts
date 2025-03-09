@@ -24,11 +24,6 @@ export const useApiStore = defineStore(
 
 		const accountStore = useAccountStore()
 
-		const openai = new OpenAI({
-			apiKey: accountStore.account.apiKeyOpenAi,
-			dangerouslyAllowBrowser: true,
-		})
-
 		const evaluateConversation = async (
 			transcript: string[],
 		): Promise<{
@@ -62,6 +57,11 @@ export const useApiStore = defineStore(
         Here is the transcript:
         "${transcript.join('\n')}"
         `
+
+				const openai = new OpenAI({
+					apiKey: accountStore.account.apiKeyOpenAi,
+					dangerouslyAllowBrowser: true,
+				})
 
 				const response = await openai.chat.completions.create({
 					model: 'gpt-3.5-turbo',
