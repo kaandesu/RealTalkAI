@@ -26,12 +26,7 @@ export const useConfigStore = defineStore(
 			desc: 'Active Language Learning',
 			logo: 'https://avatar.vercel.sh/0.svg',
 			logoFallback: 'RT',
-			pages: [
-				p.Dashboard.value,
-				p.Game.value,
-				p.Authentication.value,
-				p.Settings.value,
-			],
+			pages: [p.Dashboard.value, p.Game.value, p.Settings.value],
 		})
 
 		const structure = readonly(structureRef)

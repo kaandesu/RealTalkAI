@@ -89,8 +89,9 @@
 							</ul>
 						</CardDescription>
 						<CardFooter class="mt-5 flex flex-col gap-y-5">
-							<section class="text-xs italic text-gray-600">
-								Feedback: {{ level.result?.feedback ?? 'N/A' }}
+							<section class="text-xs text-gray-600">
+								<i>Feedback</i>:
+								{{ level.result?.feedback ?? 'N/A' }}
 							</section>
 							<section
 								class="flex items-center justify-center gap-x-3"
@@ -140,19 +141,30 @@
 							>
 						</CardHeader>
 						<CardContent>
-							<p class="ml-12 flex justify-center">
-								Tip:
-								{{
-									level.suggestions?.tip ??
-									'No suggestion available'
-								}}
-							</p>
-							<p
-								v-if="level.suggestions?.example"
-								class="ml-12 mt-1 text-xs italic text-gray-600"
+							<div
+								class="flex flex-col items-center justify-center space-x-2"
 							>
-								Example: {{ level.suggestions.example }}
-							</p>
+								<p class="text-xs">
+									Tip:
+									{{
+										level.suggestions?.tip ??
+										'No suggestion available'
+									}}
+								</p>
+
+								<Separator
+									v-if="level.suggestions?.example"
+									label="Example"
+									class="mb-3 mt-3"
+								/>
+
+								<p
+									v-if="level.suggestions?.example"
+									class="text-xs"
+								>
+									{{ level.suggestions.example }}
+								</p>
+							</div>
 						</CardContent>
 					</Card>
 				</section>

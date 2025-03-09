@@ -97,7 +97,7 @@ export const useAccountStore = defineStore(
 				desc: 'Practice booking a room, requesting amenities, and handling common hotel interactions.',
 				objective:
 					'Successfully check into a hotel and communicate your needs to the receptionist.',
-				agentId: '',
+				agentId: 'REqzQx621q1iJ5HMV720',
 			},
 			{
 				name: 'Airport Check-in',

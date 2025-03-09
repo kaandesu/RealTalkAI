@@ -36,7 +36,7 @@ import { ArrowRight } from 'lucide-vue-next'
 				</p>
 
 				<div class="space-y-4 md:space-x-4 md:space-y-0">
-					<NuxtLink to="/dashboard" :class="cn(buttonVariants({}))">
+					<NuxtLink to="/sign-up" :class="cn(buttonVariants({}))">
 						Get Started
 
 						<ArrowRight

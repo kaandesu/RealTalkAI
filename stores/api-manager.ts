@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { Conversation } from '@11labs/client'
 import createToast from '~/utils/create-toast'
+import { useAccountStore } from './account'
 import OpenAI from 'openai'
 
 export type ApiState = {
@@ -131,9 +132,6 @@ export const useApiStore = defineStore(
 
 				console.log('Transcript:', transcript)
 
-				conversationHistory.value = conversationHistory.value.filter(
-					(c) => c.gameIndex !== gameId,
-				)
 				createToast({
 					message: 'Results are out!!',
 					toastOps: {
@@ -181,6 +179,10 @@ export const useApiStore = defineStore(
 					agentId,
 					onConnect: () => {
 						timeout = setTimeout(() => {
+							conversationHistory.value =
+								conversationHistory.value.filter(
+									(c) => c.gameIndex !== gameIndex,
+								)
 							conversationHistory.value.push({
 								gameIndex,
 								convoId: conversation.value?.getId() ?? '',

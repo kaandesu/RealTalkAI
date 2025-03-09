@@ -60,7 +60,7 @@
 		<br />
 
 		<div
-			v-if="state.aciveGameIndex != -1 && pageLoaded"
+			v-if="state.aciveGameIndex == 0 && pageLoaded"
 			id="myEmbeddedScene"
 		>
 			<a-scene
@@ -87,6 +87,37 @@
 					shadow="cast: false"
 					gltf-model="indian_office_woman.glb"
 					animation-mixer="clip: mixamo.com; loop: true"
+				/>
+			</a-scene>
+		</div>
+
+		<div
+			v-if="state.aciveGameIndex == 1 && pageLoaded"
+			id="myEmbeddedScene"
+		>
+			<a-scene
+				id="ascene"
+				light="defaultLightsEnabled: true"
+				renderer="colorManagement: true;"
+				embedded
+			>
+				<a-sky src="hotelsky.jpg"></a-sky>
+				<a-entity
+					id="myModel"
+					position="-17.031 0 -25.878"
+					scale="1.1 1.1 1.1"
+					rotation="0 180 0"
+					shadow="cast: false"
+					gltf-model="hospital_reception_environment.glb"
+				/>
+
+				<a-entity
+					id="myModel2"
+					position="-0.213 0 -1.594"
+					scale="1.2 1.2 1.2"
+					shadow="cast: false"
+					gltf-model="business_man_-_low_polygon_game_character.glb"
+					animation-mixer="clip: Rig|idle; loop: true"
 				/>
 			</a-scene>
 		</div>
