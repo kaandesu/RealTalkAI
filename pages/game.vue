@@ -28,7 +28,7 @@
 					class="flex items-center justify-center gap-x-2 rounded-sm px-3 sm:px-4 md:px-5 lg:px-6"
 				>
 					<Icon
-						name="material-symbols:play-arrow-rounded"
+						name="material-symbols:stop-circle-outline"
 						class="h-6 w-6 sm:h-7 sm:w-7 lg:h-8 lg:w-8"
 					/>
 					<Label class="hidden pr-3 sm:block md:pr-4 lg:pr-5">
