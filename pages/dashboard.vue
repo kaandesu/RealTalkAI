@@ -67,10 +67,30 @@
 							>
 						</CardHeader>
 						<CardDescription>
-							<p class="ml-12 font-semibold">
+							<span class="ml-12 font-semibold">
 								Overall Score:
 								{{ level.result?.overallScore ?? 'N/A' }}/100
-							</p>
+								<div class="relative mt-1 h-3 w-full">
+									<div
+										class="absolute left-0 mx-5 h-2 w-5 rounded-full"
+										:style="{
+											background: '#cccccc',
+											maxWidth: '80%',
+											width: '100%',
+										}"
+									/>
+									<div
+										class="absolute left-0 mx-5 h-2 w-3/5 rounded-full"
+										:style="{
+											background: '#e0e0e0',
+											maxWidth: '80%',
+											width: `${level.result?.overallScore ?? 0}%`,
+											transition: 'width 0.6s ease',
+											backgroundColor: `hsl(${level.result?.overallScore ?? 0 * 1.2}, 100%, 50%)`,
+										}"
+									></div>
+								</div>
+							</span>
 							<ul class="ml-12 list-disc pl-5 text-sm">
 								<li>
 									Flow:
