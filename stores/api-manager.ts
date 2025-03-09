@@ -83,11 +83,12 @@ export const useApiStore = defineStore(
 				} = JSON.parse(response.choices[0].message.content ?? '{}')
 
 				if (parsedData.result != undefined) {
-					parsedData.result.overallScore =
+					parsedData.result.overallScore = Math.round(
 						(parsedData.result.grammarScore +
 							parsedData.result.vocabScore +
 							parsedData.result.flowScore) /
-						3
+							3,
+					)
 				}
 
 				console.log('OpenAI responded with', parsedData)
