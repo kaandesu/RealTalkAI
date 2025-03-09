@@ -80,7 +80,7 @@ const handleClick = async () => {
 	isLoading.value = true
 	setTimeout(async () => {
 		isLoading.value = false
-		await navigateTo('/dashboard')
+		await navigateTo('/settings')
 	}, 1000)
 }
 

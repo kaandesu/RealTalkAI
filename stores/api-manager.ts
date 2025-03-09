@@ -1,7 +1,11 @@
 import { defineStore } from 'pinia'
 import { Conversation } from '@11labs/client'
 import createToast from '~/utils/create-toast'
-import { useAccountStore } from './account'
+import {
+	useAccountStore,
+	type LevelResult,
+	type LevelSuggestion,
+} from './account'
 import OpenAI from 'openai'
 
 export type ApiState = {
@@ -35,21 +39,24 @@ export const useApiStore = defineStore(
         You are an expert language tutor. Evaluate the following conversation transcript.
         Provide a JSON response with:
         - An evaluation of the user's conversation skills.
-        - Scores (overallScore, flowScore, grammarScore, vocabScore) from 1 to 100.
+        - Scores (flowScore, grammarScore, vocabScore) from 1 to 100.
         - Constructive feedback.
         - A helpful language learning tip with an example.
+
+         Be little strict with the scoring. If the user’s response is incomplete, unnatural, 
+        it should be reflected in a lower score. Fluency and natural conversation flow are critical factors. While vocabulary is important, 
+        the primary focus is on how well the user responds in a conversation, with emphasis on proper sentence construction and context.
 
         Example JSON response:
         {
           "result": {
-            "overallScore": 89,
-            "flowScore": 53,
-            "grammarScore": 87,
-            "vocabScore": 77,
-            "feedback": "Great effort! Your fluency is good, but you need to work on using more varied vocabulary."
+            "flowScore": 63,
+            "grammarScore": 67,
+            "vocabScore": 47,
+            "feedback": "Great effort! Your fluency is okay, but you need to work on using more varied vocabulary."
           },
           "suggestions": {
-            "tip": "Try using more advanced vocabulary instead of repeating simple words.",
+            "tip": "Focus on structuring your sentences with clear subject-verb-object order and avoid using overly short phrases.",
             "example": "Instead of saying 'very good', try 'excellent' or 'outstanding'."
           }
         }
@@ -70,9 +77,18 @@ export const useApiStore = defineStore(
 					max_tokens: 500,
 				})
 
-				const parsedData = JSON.parse(
-					response.choices[0].message.content ?? '{}',
-				)
+				const parsedData: {
+					result?: LevelResult
+					suggestions?: LevelSuggestion
+				} = JSON.parse(response.choices[0].message.content ?? '{}')
+
+				if (parsedData.result != undefined) {
+					parsedData.result.overallScore =
+						(parsedData.result.grammarScore +
+							parsedData.result.vocabScore +
+							parsedData.result.flowScore) /
+						3
+				}
 
 				console.log('OpenAI responded with', parsedData)
 
@@ -178,15 +194,18 @@ export const useApiStore = defineStore(
 				conversation.value = await Conversation.startSession({
 					agentId,
 					onConnect: () => {
+						conversationHistory.value =
+							conversationHistory.value.filter(
+								(c) => c.gameIndex !== gameIndex,
+							)
 						timeout = setTimeout(() => {
-							conversationHistory.value =
-								conversationHistory.value.filter(
-									(c) => c.gameIndex !== gameIndex,
-								)
-							conversationHistory.value.push({
-								gameIndex,
-								convoId: conversation.value?.getId() ?? '',
-							})
+							const convoId = conversation.value?.getId()
+							if (convoId != '' && convoId != undefined) {
+								conversationHistory.value.push({
+									gameIndex,
+									convoId,
+								})
+							}
 							console.log(
 								'conversation history id:',
 								conversationHistory.value,
@@ -196,6 +215,15 @@ export const useApiStore = defineStore(
 					},
 					onDisconnect: () => {
 						apiState.value.connected = false
+						clearTimeout(timeout)
+
+						const convoId = conversation.value?.getId()
+						if (convoId != '' && convoId != undefined) {
+							conversationHistory.value.push({
+								gameIndex,
+								convoId,
+							})
+						}
 					},
 					onError: (error) => {
 						console.error('Error:', error)
