@@ -16,6 +16,7 @@ const props = defineProps<{
 	gameTitle?: string
 	desc?: string
 	transcript: string[]
+	aiTitle: string
 }>()
 </script>
 
@@ -44,7 +45,9 @@ const props = defineProps<{
 			<div class="grid gap-4 overflow-y-auto px-6 py-4">
 				<div class="flex h-[300dvh] flex-col gap-y-5">
 					<p v-for="(chat, index) in props.transcript">
-						<span v-if="index % 2 == 0"> Waitress: </span>
+						<span v-if="index % 2 == 0">
+							{{ props.aiTitle }}:
+						</span>
 						<span v-else> You: </span>
 						{{ chat }}
 					</p>

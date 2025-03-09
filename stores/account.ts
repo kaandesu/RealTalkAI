@@ -46,6 +46,7 @@ export type Level = {
 	suggestions?: LevelSuggestion
 	transcript?: string[]
 	agentId?: string
+	agentTitle?: string
 }
 
 export type CurrentState = {
@@ -91,6 +92,7 @@ export const useAccountStore = defineStore(
 				objective:
 					'Successfully complete your order while keeping the conversation natural and polite.',
 				agentId: '3VjJuSeZFAZLux3QD7H1',
+				agentTitle: 'Waitress',
 			},
 			{
 				name: 'Hotel Reception',
@@ -98,6 +100,7 @@ export const useAccountStore = defineStore(
 				objective:
 					'Successfully check into a hotel and communicate your needs to the receptionist.',
 				agentId: 'REqzQx621q1iJ5HMV720',
+				agentTitle: 'Receptionist',
 			},
 			{
 				name: 'Airport Check-in',

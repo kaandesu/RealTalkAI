@@ -100,6 +100,7 @@
 									:disabled="level.agentId == ''"
 									:gameId="index"
 									:gameTitle="level.name"
+									:aiTitle="level.agentTitle ?? 'AI'"
 									:transcript="
 										level.transcript ?? ['N/A', 'N/A']
 									"
